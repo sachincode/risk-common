@@ -61,6 +61,7 @@ public class MobileIp138Resolver implements Resolver<MobileInfo> {
             }
 
             MobileInfo mobileInfo = new MobileInfo();
+            mobileInfo.setPrefix(param.substring(0, 7));
             for (Element tr : trs) {
                 Elements tds = tr.getElementsByTag("td");
                 if (tds.size() != 2) {

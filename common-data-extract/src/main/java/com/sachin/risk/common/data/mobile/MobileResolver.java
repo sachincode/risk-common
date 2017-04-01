@@ -82,9 +82,4 @@ public class MobileResolver implements Resolver<MobileInfo> {
         return sb.toString();
     }
 
-    public static void main(String[] args) {
-        MobileResolver resolver = new MobileResolver();
-        MobileInfo mobileInfo = resolver.getMobileInfo("1731476");
-        System.out.println(mobileInfo);
-    }
 }

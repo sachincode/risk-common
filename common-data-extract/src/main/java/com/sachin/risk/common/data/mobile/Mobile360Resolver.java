@@ -46,6 +46,7 @@ public class Mobile360Resolver implements Resolver<MobileInfo> {
             if (String.valueOf(map.get("code")).equals("0")) {
                 Map<String, String> data = (Map<String, String>) map.get("data");
                 MobileInfo mobileInfo = new MobileInfo();
+                mobileInfo.setPrefix(param.substring(0, 7));
                 mobileInfo.setProvince(data.get("province"));
                 mobileInfo.setCity(data.get("city"));
                 mobileInfo.setSp(data.get("sp"));

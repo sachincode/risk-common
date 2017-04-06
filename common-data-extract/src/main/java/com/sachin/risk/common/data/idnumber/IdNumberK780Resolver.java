@@ -23,8 +23,6 @@ import java.util.Map;
  * @time 下午8:37
  * @Description:
  * https://www.nowapi.com
- * qunarsecteam
- * latitudeE5430
  * {
     "success": "1",
     "result": {

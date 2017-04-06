@@ -30,6 +30,7 @@ public class MobileIp138Resolver implements Resolver<MobileInfo> {
     private static final String API_URL = "http://www.ip138.com:8080/search.asp?action=mobile&mobile=";
     private static final Logger logger = LoggerFactory.getLogger(MobileIp138Resolver.class);
     private static final Splitter splitter = Splitter.on("|").trimResults().omitEmptyStrings();
+    private static final String NOT_KNOWN = "未知";
 
     @Override
     public MobileInfo resolve(String param) {
@@ -70,6 +71,9 @@ public class MobileIp138Resolver implements Resolver<MobileInfo> {
                 String title = trimString(tds.get(0).text());
                 if ("卡号归属地".equals(title)) {
                     String value = tds.get(1).text().replaceAll("[\\u00A0]+", "|");
+                    if (value.contains(NOT_KNOWN)) {
+                        return null;
+                    }
                     List<String> values = splitter.splitToList(value);
                     if (values.size() >= 1) {
                         mobileInfo.setProvince(values.get(0));
@@ -83,6 +87,9 @@ public class MobileIp138Resolver implements Resolver<MobileInfo> {
                     }
                 } else if ("卡类型".equals(title)) {
                     String value = tds.get(1).text().replaceAll("[\\u00A0]+", " ");
+                    if (value.contains(NOT_KNOWN)) {
+                        continue;
+                    }
                     mobileInfo.setCard(value);
                     mobileInfo.setSp(value);
                 }
@@ -104,4 +111,5 @@ public class MobileIp138Resolver implements Resolver<MobileInfo> {
         }
         return s.trim().replace(" ", "").replaceAll("[\\u00A0]+", "");
     }
+
 }

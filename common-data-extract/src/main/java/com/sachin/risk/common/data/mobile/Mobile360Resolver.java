@@ -51,7 +51,9 @@ public class Mobile360Resolver implements Resolver<MobileInfo> {
                 mobileInfo.setCity(data.get("city"));
                 mobileInfo.setSp(data.get("sp"));
                 mobileInfo.setSource(Constants.C360);
-                return mobileInfo;
+                if (mobileInfo.getProvince() != null && mobileInfo.getProvince().trim().length() > 0) {
+                    return mobileInfo;
+                }
             }
         } catch (Exception e) {
             logger.error("resolve mobile info from 360 error. param: {}", param, e);

@@ -10,6 +10,7 @@
     <modules>
         <module>common-data</module>
         <module>common-data-extract</module>
+        <module>common-core</module>
     </modules>
     <packaging>pom</packaging>
 

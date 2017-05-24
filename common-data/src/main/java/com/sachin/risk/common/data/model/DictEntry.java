@@ -170,10 +170,6 @@ public class DictEntry {
                 ", dictName='" + dictName + '\'' +
                 ", dictDesc='" + dictDesc + '\'' +
                 ", dictSort=" + dictSort +
-                ", createBy='" + createBy + '\'' +
-                ", updateBy='" + updateBy + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 ", ext1='" + ext1 + '\'' +
                 ", ext2='" + ext2 + '\'' +
                 ", ext3='" + ext3 + '\'' +

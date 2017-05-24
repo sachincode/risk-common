@@ -1,25 +1,28 @@
 package com.sachin.risk.common.core.model;
 
+import com.sachin.risk.common.core.enums.BusiType;
+import com.sachin.risk.common.core.enums.DataType;
+
 import java.util.Date;
 
 /**
  * @author shicheng.zhang
- * @since 17-4-16 下午10:22
+ * @since 17-5-24 下午4:55
  */
-public class EventType {
+public class EventProperty {
     /** 主键id **/
     private long id;
-    /** 事件类型编码 **/
-    private String code;
-    /** 事件类型名称 **/
-    private String name;
+    /** 属性key **/
+    private String propKey;
+    /** 属性名 **/
+    private String propName;
     /** 描述 **/
     private String description;
-    /** 事件类型:1同步2异步 **/
-    private int type;
-    /** 模块 **/
-    private String module;
-    /** 事件类型:1上线2下线 **/
+    /** 数据类型 **/
+    private DataType dataType;
+    /** 业务类型 **/
+    private BusiType busiType;
+    /** 状态:1上线2下线 **/
     private int status;
     /** 创建人 **/
     private String createBy;
@@ -38,20 +41,20 @@ public class EventType {
         this.id = id;
     }
 
-    public String getCode() {
-        return code;
+    public String getPropKey() {
+        return propKey;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setPropKey(String propKey) {
+        this.propKey = propKey;
     }
 
-    public String getName() {
-        return name;
+    public String getPropName() {
+        return propName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPropName(String propName) {
+        this.propName = propName;
     }
 
     public String getDescription() {
@@ -62,28 +65,20 @@ public class EventType {
         this.description = description;
     }
 
-    public int getType() {
-        return type;
+    public DataType getDataType() {
+        return dataType;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
     }
 
-    public boolean isSync() {
-        return type == 1;
+    public BusiType getBusiType() {
+        return busiType;
     }
 
-    public boolean isAsync() {
-        return type == 2;
-    }
-
-    public String getModule() {
-        return module;
-    }
-
-    public void setModule(String module) {
-        this.module = module;
+    public void setBusiType(BusiType busiType) {
+        this.busiType = busiType;
     }
 
     public int getStatus() {
@@ -126,16 +121,16 @@ public class EventType {
         this.updateTime = updateTime;
     }
 
-    @Override
+    @Override 
     public String toString() {
-        return "EventType{" +
-                "id=" + id +
-                ", code='" + code + '\'' +
-                ", name='" + name + '\'' +
+        return "EventProperty{" +
+                "status=" + status +
+                ", id=" + id +
+                ", propKey='" + propKey + '\'' +
+                ", propName='" + propName + '\'' +
                 ", description='" + description + '\'' +
-                ", type=" + type +
-                ", module='" + module + '\'' +
-                ", status=" + status +
+                ", dataType=" + dataType +
+                ", busiType=" + busiType +
                 '}';
     }
 }

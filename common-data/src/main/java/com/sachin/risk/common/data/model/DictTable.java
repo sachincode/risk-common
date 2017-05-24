@@ -108,10 +108,6 @@ public class DictTable {
                 ", tableName='" + tableName + '\'' +
                 ", tableDesc='" + tableDesc + '\'' +
                 ", tableType=" + tableType +
-                ", createBy='" + createBy + '\'' +
-                ", updateBy='" + updateBy + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 ", tableNameCn='" + tableNameCn + '\'' +
                 '}';
     }

@@ -8,7 +8,7 @@ package com.sachin.risk.common.core.enums;
 public enum DataType {
 
     STRING(0, "字符串"),
-    INTEGER(1, "整形"),
+    INTEGER(1, "整型"),
     LONG(2, "长整型"),
     DOUBLE(3, "浮点型"),
     BOOLEAN(4, "布尔型"),

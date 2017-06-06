@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sachin.risk.common.data.dao.RcDictEntryMapper">
+
+    <resultMap id="rcDictEntry" type="com.sachin.risk.common.data.model.DictEntry">
+        <result property="id" column="id"/>
+        <result property="tableId" column="tbl_id"/>
+        <result property="dictCode" column="dict_code"/>
+        <result property="dictName" column="dict_name"/>
+        <result property="dictDesc" column="dict_desc"/>
+        <result property="dictSort" column="dict_sort"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="ext1" column="ext1"/>
+        <result property="ext2" column="ext2"/>
+        <result property="ext3" column="ext3"/>
+        <result property="ext4" column="ext4"/>
+        <result property="ext5" column="ext5"/>
+    </resultMap>
+
+    <sql id="selectSql">
+	    select 
+	    	id,
+	    	tbl_id,
+	    	dict_code,
+	    	dict_name,
+	    	dict_desc,
+	    	dict_sort,
+	    	ext1,
+	    	ext2,
+	    	ext3,
+	    	ext4,
+	    	ext5
+	    from
+	        rc_dict_entry
+	</sql>
+
+    <sql id="whereSql">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="tableId != null">
+                and tbl_id = #{tableId}
+            </if>
+            <if test="dictCode != null and dictCode != ''">
+                and dict_code = #{dictCode}
+            </if>
+            <if test="dictName != null and dictName != ''">
+                and dict_name = #{dictName}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryAll" resultMap="rcDictEntry">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryMaxUpdateTime" resultType="Date">
+        SELECT max(update_time) from rc_dict_entry
+    </select>
+
+    <select id="queryByTableId" resultMap="rcDictEntry">
+        <include refid="selectSql"/>
+        WHERE tbl_id = #{tableId}
+    </select>
+
+
+
+    <!-- 根据条件查询所有 -->
+    <select id="queryByCondition" resultMap="rcDictEntry">
+        <include refid="selectSql"/>
+        <include refid="whereSql"/>
+        order by tbl_id,dict_code
+    </select>
+
+    <!-- 统计条数 -->
+    <select id="count" resultType="long">
+        select count(*)
+        from rc_dict_entry
+        <include refid="whereSql"/>
+    </select>
+
+</mapper>

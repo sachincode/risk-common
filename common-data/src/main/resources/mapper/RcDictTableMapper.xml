@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sachin.risk.common.data.dao.RcDictTableMapper">
+
+    <resultMap id="rcDictTable" type="com.sachin.risk.common.data.model.DictTable">
+        <result property="id" column="id"/>
+        <result property="tableName" column="tbl_name"/>
+        <result property="tableDesc" column="tbl_desc"/>
+        <result property="tableType" column="tbl_type"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="tableNameCn" column="tbl_name_cn"/>
+    </resultMap>
+
+    <sql id="selectSql">
+	    select 
+	    	id,
+	    	tbl_name,
+	    	tbl_desc,
+	    	tbl_type,
+	    	create_by,
+	    	update_by,
+	    	create_time,
+	    	update_time,
+	    	tbl_name_cn
+	    from
+	        rc_dict_table
+	</sql>
+
+    <sql id="whereSql">
+        <where>
+            <if test="updateTime != null">
+                and update_time >= #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="queryAll" resultMap="rcDictTable">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryMaxUpdateTime" resultType="Date">
+        SELECT max(update_time) from rc_dict_table
+    </select>
+
+    <select id="queryGTEUpdateTime" resultMap="rcDictTable">
+        <include refid="selectSql"/>
+        WHERE update_time >= #{updateTime}
+    </select>
+
+
+
+
+    <!-- 根据条件查询所有 -->
+    <select id="queryByCondition" resultMap="rcDictTable">
+        <include refid="selectSql"/>
+        <include refid="whereSql"/>
+    </select>
+
+    <!-- 统计条数 -->
+    <select id="count" resultType="long">
+        select count(*)
+        from rc_dict_table
+        <include refid="whereSql"/>
+    </select>
+
+
+</mapper>

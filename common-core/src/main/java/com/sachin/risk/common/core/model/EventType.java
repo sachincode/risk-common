@@ -1,5 +1,7 @@
 package com.sachin.risk.common.core.model;
 
+import com.sachin.risk.common.core.enums.EventScope;
+
 import java.util.Date;
 
 /**
@@ -16,7 +18,7 @@ public class EventType {
     /** 描述 **/
     private String description;
     /** 事件类型:1同步2异步 **/
-    private int type;
+    private EventScope type;
     /** 模块 **/
     private String module;
     /** 事件类型:1上线2下线 **/
@@ -62,20 +64,20 @@ public class EventType {
         this.description = description;
     }
 
-    public int getType() {
+    public EventScope getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(EventScope type) {
         this.type = type;
     }
 
     public boolean isSync() {
-        return type == 1;
+        return type == EventScope.SYNC;
     }
 
     public boolean isAsync() {
-        return type == 2;
+        return type == EventScope.ASYNC;
     }
 
     public String getModule() {
@@ -133,7 +135,7 @@ public class EventType {
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", type=" + type +
+                ", type=" + type.getName() +
                 ", module='" + module + '\'' +
                 ", status=" + status +
                 '}';

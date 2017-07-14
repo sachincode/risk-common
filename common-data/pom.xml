@@ -22,6 +22,10 @@
             <groupId>com.sachin.risk</groupId>
             <artifactId>common-util</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sachin.risk</groupId>
+            <artifactId>common-core</artifactId>
+        </dependency>
 
         <!-- myBatis -->
         <dependency>

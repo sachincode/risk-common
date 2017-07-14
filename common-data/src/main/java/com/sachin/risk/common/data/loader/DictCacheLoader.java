@@ -74,20 +74,28 @@ public class DictCacheLoader extends AbstractCacheLoader {
                 listDictMap.size(), System.currentTimeMillis() - start);
     }
 
+    /**
+     * 缓存重加载，依赖数据表更新时间
+     *
+     */
     @Override
     public void reload() {
+        // 1、缓存的上次更新时间为空，则进行全量加载
         long start = System.currentTimeMillis();
         if (DictCache.getInstance().getLastTime() == null) {
             doLoad();
             return;
         }
+        // 2、清除内存中存在但已在数据库中删除的字典表
         List<DictTable> dictTables = rcDictTableMapper.queryAll();
         removeDeletedTable(dictTables);
+        // 3、如果缓存的上次更新时间和数据库中存在的最大更新时间相等，则此次不进行重新加载缓存
         Date lastTime = getMaxUpdateTime();
         if (lastTime == null || DictCache.getInstance().getLastTime().equals(lastTime)) {
             logger.info("no need to reload dict cache.");
             return;
         }
+        // 4、对比缓存的更新时间和每个字典表的最后更新时间，若后者大，则更新此 字典表的缓存内容
         Map<Long, DictTable> tableMap = getTableIdMap(dictTables);
         for (Map.Entry<Long, DictTable> entry : tableMap.entrySet()) {
             DictTable dictTable = entry.getValue();
@@ -105,7 +113,8 @@ public class DictCacheLoader extends AbstractCacheLoader {
                 DictCache.getInstance().getListDictMap().put(dictTable.getTableName(), entryMap);
             }
         }
-
+        // 5、缓存最新的更新时间
+        DictCache.getInstance().setLastTime(lastTime);
         logger.info("dict cache reload finished. use time: {}", System.currentTimeMillis() - start);
     }
 

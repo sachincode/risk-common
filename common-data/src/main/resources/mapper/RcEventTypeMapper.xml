@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sachin.risk.common.data.dao.RcEventTypeMapper">
+
+    <resultMap id="rcEventType" type="com.sachin.risk.common.core.model.EventType">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="type" column="type" javaType="com.sachin.risk.common.core.enums.EventScope"/>
+        <result property="module" column="module"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <sql id="selectSql">
+	    select 
+	    	id,
+	    	code,
+	    	name,
+	    	description,
+	    	type,
+	    	module,
+	    	status
+	    from
+	        rc_event_type
+	</sql>
+
+    <!-- 查询所有 -->
+    <select id="queryAllEventType" resultMap="rcEventType">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryMaxUpdateTime" resultType="Date">
+        SELECT max(update_time) from rc_event_type
+    </select>
+
+</mapper>

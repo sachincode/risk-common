@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * 字典表缓存
+ * 使用约定：使用缓存的地方请勿修改缓存内容
  * @author shicheng.zhang
  * @since 17-4-27 上午11:40
  */

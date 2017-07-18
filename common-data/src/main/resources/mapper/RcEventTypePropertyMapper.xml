@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sachin.risk.common.data.dao.RcEventTypePropertyMapper">
+
+    <resultMap id="rcEventTypeProperty" type="com.sachin.risk.common.data.model.EventTypeProperty">
+        <result property="id" column="id"/>
+        <result property="eventTypeId" column="event_type_id"/>
+        <result property="eventPropId" column="event_prop_id"/>
+        <result property="encryptType" column="encrypt_type" javaType="com.sachin.risk.common.core.enums.EncryptType"/>
+        <result property="sortNumber" column="sort_number"/>
+        <result property="dictTableName" column="dict_table_name"/>
+        <result property="status" column="status"/>
+        <result property="eventPropKey" column="prop_key"/>
+        <result property="eventPropName" column="prop_name"/>
+        <result property="dataType" column="data_type" javaType="com.sachin.risk.common.core.enums.DataType"/>
+        <result property="busiType" column="busi_type" javaType="com.sachin.risk.common.core.enums.BusiType"/>
+    </resultMap>
+
+    <sql id="selectSql">
+	    select 
+	    	a.id,
+	    	a.event_type_id,
+	    	a.event_prop_id,
+	    	a.encrypt_type,
+	    	a.sort_number,
+	    	a.dict_table_name,
+	    	a.status,
+	    	b.prop_key,
+	    	b.prop_name,
+	    	b.data_type,
+	    	b.busi_type
+	    from
+	        rc_event_type_property as a
+        JOIN rc_event_property as b
+        on a.event_prop_id = b.id
+	</sql>
+
+    <!-- 查询所有 -->
+    <select id="queryAll" resultMap="rcEventTypeProperty">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryMaxUpdateTime" resultType="Date">
+        SELECT max(update_time) from rc_event_type_property
+    </select>
+
+</mapper>

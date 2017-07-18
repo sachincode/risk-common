@@ -49,7 +49,7 @@ public class EventTypeCacheLoader extends AbstractCacheLoader {
         EventTypeCache.getInstance().setLastTime(lastTime);
         EventTypeCache.getInstance().setLastCount(eventTypes.size());
 
-        logger.info("dict cache load finished. size: {}, use time: {}", eventTypes.size(),
+        logger.info("EventType cache load finished. size: {}, use time: {}", eventTypes.size(),
                 System.currentTimeMillis() - start);
     }
 

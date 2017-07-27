@@ -25,7 +25,7 @@
 	</sql>
 
     <!-- 查询所有 -->
-    <select id="queryAllTrainStation" resultMap="rcAirportCode">
+    <select id="queryAllAirportCode" resultMap="rcAirportCode">
         <include refid="selectSql"/>
     </select>
 

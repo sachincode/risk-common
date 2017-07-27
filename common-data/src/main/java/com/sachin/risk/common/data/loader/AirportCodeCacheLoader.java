@@ -16,12 +16,12 @@ import org.springframework.stereotype.Service;
 import com.sachin.risk.common.util.cache.AbstractCacheLoader;
 
 /**
- * 火车站归属地缓存
+ * 机场三字码属地缓存
  * 依赖数据表更新时间
  * 不对删除数据更新缓存
  *
  * @author shicheng.zhang
- * @since 17-7-25 下午6:23
+ * @since 17-7-26 下午6:23
  */
 @Service
 public class AirportCodeCacheLoader extends AbstractCacheLoader {

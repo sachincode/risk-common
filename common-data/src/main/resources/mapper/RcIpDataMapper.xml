@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sachin.risk.common.data.dao.RcIpDataMapper">
+
+    <resultMap id="rcIpData" type="com.sachin.risk.common.data.model.IpData">
+        <result property="id" column="id"/>
+        <result property="startIp" column="start_ip"/>
+        <result property="endIp" column="end_ip"/>
+        <result property="country" column="country"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+    </resultMap>
+
+    <sql id="selectSql">
+	    select
+	        id,
+	    	start_ip,
+	    	end_ip,
+	    	country,
+	    	province,
+	    	city
+	    from
+	        rc_ip_data
+	</sql>
+
+    <!-- 分页查询 -->
+    <select id="queryByLimit" resultMap="rcIpData">
+        <include refid="selectSql"/>
+        WHERE id > #{id}
+        ORDER BY id
+        limit #{pageSize}
+    </select>
+
+    <select id="queryGteUpdateTime" resultMap="rcIpData">
+        <include refid="selectSql"/>
+        WHERE update_time >= #{updateTime}
+    </select>
+
+    <select id="queryMaxUpdateTime" resultType="Date">
+        SELECT max(update_time) from rc_ip_data
+    </select>
+
+</mapper>

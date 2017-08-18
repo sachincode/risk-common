@@ -8,11 +8,10 @@ package com.sachin.risk.common.core.enums;
 public enum DataType {
 
     STRING(0, "字符串"),
-    INTEGER(1, "整型"),
-    LONG(2, "长整型"),
-    DOUBLE(3, "浮点型"),
-    BOOLEAN(4, "布尔型"),
-    DATE(5, "日期");
+    LONG(1, "整型"),
+    DOUBLE(2, "浮点型"),
+    BOOLEAN(3, "布尔型"),
+    DATE(4, "日期");
 
     private int code;
     private String name;
@@ -35,14 +34,12 @@ public enum DataType {
         case 0:
             return STRING;
         case 1:
-            return INTEGER;
-        case 2:
             return LONG;
-        case 3:
+        case 2:
             return DOUBLE;
-        case 4:
+        case 3:
             return BOOLEAN;
-        case 5:
+        case 4:
             return DATE;
         default:
             return null;

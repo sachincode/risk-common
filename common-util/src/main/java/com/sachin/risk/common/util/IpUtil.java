@@ -38,7 +38,7 @@ public class IpUtil {
      * @param ip example: 3232235778
      * @return example: 192.168.1.2
      */
-    public static String longToIP(long ip) {
+    public static String longToIp(long ip) {
         StringBuilder sb = new StringBuilder(15);
         for (int i = 0; i < 4; i++) {
             sb.insert(0, Long.toString(ip & 0xff));

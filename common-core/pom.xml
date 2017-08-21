@@ -19,8 +19,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.sachin.risk</groupId>
+            <artifactId>common-util</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
         </dependency>
     </dependencies>
 

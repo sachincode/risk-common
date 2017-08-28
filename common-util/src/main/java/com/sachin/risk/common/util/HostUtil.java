@@ -15,6 +15,8 @@ public class HostUtil {
 
     private static Logger logger = LoggerFactory.getLogger(HostUtil.class);
 
+    private HostUtil(){}
+
     public static String getHostName() {
         String name = "";
         try {

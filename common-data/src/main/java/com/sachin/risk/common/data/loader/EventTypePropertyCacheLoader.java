@@ -1,5 +1,7 @@
 package com.sachin.risk.common.data.loader;
 
+import com.sachin.risk.common.core.model.EventType;
+import com.sachin.risk.common.data.cache.EventTypeCache;
 import com.sachin.risk.common.data.cache.EventTypePropertyCache;
 import com.sachin.risk.common.data.dao.RcEventTypePropertyMapper;
 import com.sachin.risk.common.data.model.EventTypeProperty;
@@ -48,6 +50,7 @@ public class EventTypePropertyCacheLoader extends AbstractCacheLoader {
             idPropertyMap.get(property.getEventTypeId()).put(property.getEventPropKey(), property);
         }
 
+        buildCodePropertyMap(idPropertyMap);
         EventTypePropertyCache.getInstance().setIdPropertyMap(idPropertyMap);
         EventTypePropertyCache.getInstance().setLastTime(lastTime);
         EventTypePropertyCache.getInstance().setLastCount(properties.size());
@@ -73,5 +76,18 @@ public class EventTypePropertyCacheLoader extends AbstractCacheLoader {
         // 因为量少目前全量加载，数据量增多以后需要修改reload()方法
         doLoad();
         logger.info("EventTypeProperty cache reload finished. use time: {}", System.currentTimeMillis() - start);
+    }
+
+    private void buildCodePropertyMap(ConcurrentHashMap<Long, Map<String, EventTypeProperty>> idPropertyMap) {
+        ConcurrentHashMap<String, Map<String, EventTypeProperty>> codePropertyMap = new ConcurrentHashMap<>();
+        for (Map.Entry<Long, Map<String, EventTypeProperty>> entry : idPropertyMap.entrySet()) {
+            EventType eventType = EventTypeCache.getInstance().getEventType(entry.getKey());
+            if (eventType == null) {
+                logger.error("EventType not exist. event type id: {}", entry.getKey());
+                continue;
+            }
+            codePropertyMap.put(eventType.getCode(), entry.getValue());
+        }
+        EventTypePropertyCache.getInstance().setCodePropertyMap(codePropertyMap);
     }
 }

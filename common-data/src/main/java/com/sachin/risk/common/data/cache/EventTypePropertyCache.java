@@ -12,7 +12,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class EventTypePropertyCache extends AbstractCache {
 
+    // 事件类型ID -- （事件属性编码，事件属性）
     private ConcurrentHashMap<Long, Map<String, EventTypeProperty>> idPropertyMap = new ConcurrentHashMap<>();
+    // 事件类型编码 -- （事件属性编码，事件属性）
+    private ConcurrentHashMap<String, Map<String, EventTypeProperty>> codePropertyMap = new ConcurrentHashMap<>();
 
     private EventTypePropertyCache() {
     }
@@ -29,10 +32,21 @@ public class EventTypePropertyCache extends AbstractCache {
         this.idPropertyMap = idPropertyMap;
     }
 
-    private Map<String, EventTypeProperty> getEventTypeProperty(Long eventTypeId) {
+    public Map<String, EventTypeProperty> getEventTypeProperty(Long eventTypeId) {
         if (eventTypeId == null) {
             return null;
         }
         return idPropertyMap.get(eventTypeId);
+    }
+
+    public Map<String, EventTypeProperty> getEventTypeProperty(String eventTypeCode) {
+        if (eventTypeCode == null) {
+            return null;
+        }
+        return codePropertyMap.get(eventTypeCode);
+    }
+
+    public void setCodePropertyMap(ConcurrentHashMap<String, Map<String, EventTypeProperty>> codePropertyMap) {
+        this.codePropertyMap = codePropertyMap;
     }
 }

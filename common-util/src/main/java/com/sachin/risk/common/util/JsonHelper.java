@@ -1,6 +1,7 @@
 package com.sachin.risk.common.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -29,6 +30,9 @@ import java.util.Map;
 public class JsonHelper {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonHelper.class);
+
+    private JsonHelper() {
+    }
 
     private static ObjectMapper buildBaseMapper(JsonInclude.Include include) {
         return new ObjectMapper().configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true)
@@ -193,19 +197,11 @@ public class JsonHelper {
             } else if (jsonNode.isArray()) {
                 parseArrayJsonNode(jsonNode.iterator(), key, rawOrig, excludeProperties);
             } else if (isLikePojoString(jsonNode.asText())) {
-                try {
-                    JsonNode subJsonNode = OBJECT_MAPPER.readTree(jsonNode.asText());
-                    parsePojoJsonNode(subJsonNode.fields(), key, rawOrig, excludeProperties);
-                } catch (Exception e) {
-                    rawOrig.put(key, jsonNode.asText());
-                }
+                JsonNode subJsonNode = OBJECT_MAPPER.readTree(jsonNode.asText());
+                parsePojoJsonNode(subJsonNode.fields(), key, rawOrig, excludeProperties);
             } else if (isLikeArrayString(jsonNode.asText())) {
-                try {
-                    JsonNode subJsonNode = OBJECT_MAPPER.readTree(jsonNode.asText());
-                    parseArrayJsonNode(subJsonNode.iterator(), key, rawOrig, excludeProperties);
-                } catch (Exception e) {
-                    rawOrig.put(key, jsonNode.asText());
-                }
+                JsonNode subJsonNode = OBJECT_MAPPER.readTree(jsonNode.asText());
+                parseArrayJsonNode(subJsonNode.iterator(), key, rawOrig, excludeProperties);
             } else {
                 Object value = rawOrig.get(key);
                 if (null != value) {
@@ -223,6 +219,9 @@ public class JsonHelper {
             }
         } catch (Exception e) {
             LOGGER.error("parse pojo json string error. jsonNode: {}", jsonNode, e);
+            if (e instanceof JsonParseException) {
+                rawOrig.put(key, jsonNode.asText());
+            }
         }
     }
 
